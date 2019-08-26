@@ -1,0 +1,16 @@
+site_name: '投票服务组件'
+repo_url: 'http://gitlab.icarcloud.net/iCarCloud/BCS/VendorSystem/Operation/LuckOrderServer'
+repo_name: 'GitLab'
+site_author : 'yiyp'
+docs_dir : 'apidoc'
+pages:
+  - '首页': 'index.md'
+  - '验证码': 'verificationCode.md'
+  - '用户': 'user.md'
+  - '候选人': 'candidate.md'
+  - '投票活动': 'activity.md'
+  - '候选人与活动关系': 'candidateActivitiesMembership.md'
+  - '投票': 'vote.md'
+  - '投票记录': 'userActivityRecord.md'
+#### theme type: readthedocs bootstrap cerulean cosmo cyborg slate united yeti
+theme: readthedocs

@@ -1,0 +1,59 @@
+
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-server
+  labels:
+    server: vote
+spec:
+  selector:
+    matchLabels:
+      server: vote
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        server: vote
+    spec:
+      containers:
+      - name: vote-server
+        image: dockerImagePathAndVersion
+        ports:
+        - containerPort: 6000
+        env:
+        - name: CONFIGSERVERURL
+          value: http://apollo-config-server:8080/
+        - name: LOGCOLLECTION
+          value: open
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 1000m
+            memory: 200Mi
+
+      imagePullSecrets:
+      - name: regsecret
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote-server
+  labels:
+    server: vote
+spec:
+  selector:
+    server: vote
+  type: ClusterIP     # ClusterIP ; NodePort ; LoadBalancer
+  # clusterIP: 10.106.100.xxx
+  ports:
+  - name: http
+    protocol: TCP
+  # nodePort: 30000    # Node Port
+    port: 6000         # K8S Service Port
+    targetPort: 6000   # Container Port
